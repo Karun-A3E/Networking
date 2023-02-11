@@ -6,9 +6,9 @@ This project is a Python implementation of cryptography encryption, including RS
 
 - Python 3.10.8
 - Pycryptodome (**`pip install pycryptodome`**)
-- lazyme (** pip install lazyme **)
-- crypto (** pip install crypto **)
-- tabulate (** pip install tabulate **)
+- lazyme (** `pip install lazyme` **)
+- crypto (** `pip install crypto` **)
+- tabulate (** `pip install tabulate` **)
 ## **Installation**
 
 -  Unzip the File and open the folder in VScode or any IDE
@@ -17,8 +17,8 @@ This project is a Python implementation of cryptography encryption, including RS
 
 - Open 2 terminals
 - In each terminal, change directory into either client or server =>
-  > In one terminal, change directory to 'cd server'
-  > In other terminal, change directory to 'cd client'
+  > In one terminal, change directory to `cd server`
+  > In other terminal, change directory to `cd client`
 -Run the 'server.py' in terminal that is in the server directory, by typing in : python server.py
 -After setting the server, run the client.py in the terminal in the client directory, by typing in client.py
 
