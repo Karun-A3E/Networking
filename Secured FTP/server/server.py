@@ -75,7 +75,7 @@ def download(msg,name) :
         return encrypt_file(msg[0])
     else : return ('Not Existent')
     
-def comms(msg) : 
+def comms(msg,name) : 
     return FLAG_READY+'::Server::'+'comms'
 client_functions_replies={'auth' : authentication, 'upload' : upload, 'download' : download,'comms' : comms}
 #*-------------------------------------------User Functions-------------------------------------------------
@@ -134,19 +134,15 @@ def ConnectionSetup() :
   
 #*-------------------------------Messaging-----------------------------------------------------------------
 def ReceiveMessage(cli,AESk,name):
-    while True :
-        emsg = cli.recv(1024)
-        AESkeyDn=AES.new(AESk, AES.MODE_EAX,nonce=AESk)
-        emsg=AESkeyDn.decrypt(emsg)
-        # print(emsg)
-        emsg=emsg.decode()
-        msg=RemovePadding(emsg)
-        # print(msg)
-        if msg == FLAG_QUIT:
-            color_print("\n[!] Client has disconnected", color="red", underline=True);
-            os.kill(os.getpid(), signal.SIGILL)
-        else:
-            # color_print("\n[!] Client's encrypted message \n", color="gray") 
+    try : 
+        while True :
+            emsg = cli.recv(1024)
+            AESkeyDn=AES.new(AESk, AES.MODE_EAX,nonce=AESk)
+            emsg=AESkeyDn.decrypt(emsg)
+            # print(emsg)
+            emsg=emsg.decode()
+            msg=RemovePadding(emsg)
+            # print(msg) 
             try : 
                 msg_split=msg.split('::')
                 if msg_split[1]=='msgC' or 'msgC' in msg_split: 
@@ -158,8 +154,10 @@ def ReceiveMessage(cli,AESk,name):
                 else : 
                     replies=client_functions_replies.get(msg_split[2])([msg_split[0],msg_split[1]],name)
                     send_message(cli,AESk,encrymsg=replies)
-            except IndexError : 
+            except IndexError: 
                 send_message(cli,AESk,encrymsg='File Uploaded')
+    except ConnectionResetError : 
+        color_print(f'{name} has been disconnected...',color='Red' )    
                           
          
 def send_message(socketClient,AESk, noInp=False, encrymsg=None):

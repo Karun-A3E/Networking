@@ -126,6 +126,7 @@ def SendMessage(encrypt_only=True,encryption_required=None,encrypt=True):
     server.send((en))
     if msg == FLAG_QUIT:
         os.kill(os.getpid(), signal.SIGILL)
+        color_print('Disconnecting From the Server...' , color='Red')
     else:
         None
     ReceiveMessage()
@@ -134,7 +135,7 @@ def SendMessage(encrypt_only=True,encryption_required=None,encrypt=True):
 def ReceiveMessage():
     while True:
         emsg = server.recv(1024)
-        # print(emsg)
+        print(emsg)
         AESkeyDn=AES.new(key_128, AES.MODE_EAX,nonce=key_128)
         emsg=AESkeyDn.decrypt(emsg);
         # print(emsg)
