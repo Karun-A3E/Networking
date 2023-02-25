@@ -1,0 +1,23 @@
+Appetizers:
+- Fried Calamari with Marinara Sauce
+- Bruschetta with Tomato, Basil, and Balsamic Reduction
+- Chicken Wings with Blue Cheese Dressing
+- Spinach and Artichoke Dip with Pita Chips
+
+Entrees:
+- Grilled Ribeye Steak with Garlic Mashed Potatoes and Sauteed Green Beans
+- Pan-Seared Salmon with Lemon Butter Sauce and Roasted Asparagus
+- Eggplant Parmesan with Linguine and Garlic Bread
+- Chicken Alfredo with Fettuccine and Garlic Bread
+
+Desserts:
+- Chocolate Lava Cake with Vanilla Ice Cream
+- New York Style Cheesecake with Raspberry Sauce1
+- Apple Crisp with Whipped Cream
+- Tiramisu
+
+Beverages:
+- Coca-Cola
+- Sprite
+- Iced Tea
+- Coffee
