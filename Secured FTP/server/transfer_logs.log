@@ -20,3 +20,7 @@
 2023-02-10 22:25:57,180: Received data from client LAPTOP-PNJGQI3U192.168.1.249: earnings.txt
 2023-02-10 22:26:07,723: Sending data to client earnings.txt: LAPTOP-PNJGQI3U192.168.1.249
 2023-02-10 23:00:45,543: Received data from client LAPTOP-PNJGQI3U192.168.1.249: earnings.txt
+2023-02-26 00:15:42,249: Received data from client LAPTOP-PNJGQI3U192.168.1.249: earnings.txt
+2023-02-26 00:16:11,011: Sending data to client transfer_logs.log: LAPTOP-PNJGQI3U192.168.1.249
+2023-02-26 00:22:04,899: Sending data to client menu.txt: LAPTOP-PNJGQI3U192.168.1.249
+2023-02-26 01:41:46,231: Received data from client LAPTOP-PNJGQI3U192.168.1.249: earnings.txt

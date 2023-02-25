@@ -156,7 +156,7 @@ def ReceiveMessage():
                         
                 else : 
                     if msg_split[2]=='upload' :
-                        print('Server Said : Making a File...')
+                        color_print('Server Said : Download Success',color='Green')
                         upload([msg_split[0],msg_split[1]])
                         start()
             except IndexError: start()

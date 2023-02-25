@@ -39,8 +39,8 @@ def numericonly(inputstring:str,range:bool=False,rangeMax:int=None,rangeMin:int=
 #*-------------------------------------------User Functions-------------------------------------------------
 logging.basicConfig(filename="transfer_logs.log", level=logging.INFO, format="%(asctime)s: %(message)s")
 
-def authentication(msg) :
-    print ("\n[!] Client SAID : Validating User Login");
+def authentication(msg,name) :
+    print (f"\n[!] {name} Said : Validating User Login");
     # color_print(f'\t\tUser : {msg[0]}, Password : {msg[1]}')
     verified_users={
         'jonas' : 'user',
@@ -54,10 +54,9 @@ def authentication(msg) :
         color_print('[I] Invalid User Connected....', color='red');   
         return FLAG_QUIT
 
-def upload(msg) :
-
+def upload(msg,name) :
     msg[0]=msg[0].split('>')
-    print ("\n[!] CLIENT SAID : Uploading File :", msg[0][0])
+    print (f"\n[!] {name} Said : Uploading File => ", msg[0][0])
     logging.info("Received data from client %s: %s", msg[0][1],msg[0][0])
     with open(f'{msg[0][0]}','w') as f : 
       f.write(msg[1])
@@ -69,9 +68,9 @@ def encrypt_file(filename):
     tobeencrypt=filename+'::'+docu+'::upload'
     return tobeencrypt
 
-def download(msg) : 
-    print ("\n[!] CLIENT SAID : Requesting for", msg[0])
-    if os.path.isfile(f'{msg[0]}') and msg[0] not in ['Server private.pem','Server public.pem'] : 
+def download(msg,name) : 
+    print (f"\n[!] {name} Said : Requesting {msg[0]} for download")
+    if os.path.isfile(f'{msg[0]}') and msg[0] not in ['Server private.pem','Server public.pem','transfer_logs.log'] : 
         logging.info("Sending data to client %s: %s", msg[0],msg[1])
         return encrypt_file(msg[0])
     else : return ('Not Existent')
@@ -125,7 +124,7 @@ def ConnectionSetup() :
                         clientMsg=AESkey.decrypt(clientMsg).decode()
                         CONNECTION_LIST.append((clientMsg, client))
                         color_print("\n"+clientMsg+" IS CONNECTED", color="green", underline=True)
-                        threading_message = threading.Thread(target=ReceiveMessage,args=[client,key_128]).start()
+                        threading_message = threading.Thread(target=ReceiveMessage,args=[client,key_128,clientMsg]).start()
             else : 
                 color_print("\nPublic key and public hash doesn't match", color="red", underline=True)
                 client.close()
@@ -134,7 +133,7 @@ def ConnectionSetup() :
 
   
 #*-------------------------------Messaging-----------------------------------------------------------------
-def ReceiveMessage(cli,AESk):
+def ReceiveMessage(cli,AESk,name):
     while True :
         emsg = cli.recv(1024)
         AESkeyDn=AES.new(AESk, AES.MODE_EAX,nonce=AESk)
@@ -144,7 +143,7 @@ def ReceiveMessage(cli,AESk):
         msg=RemovePadding(emsg)
         # print(msg)
         if msg == FLAG_QUIT:
-            color_print("\n[!] Server was shutdown by admin", color="red", underline=True)
+            color_print("\n[!] Client has disconnected", color="red", underline=True);
             os.kill(os.getpid(), signal.SIGILL)
         else:
             # color_print("\n[!] Client's encrypted message \n", color="gray") 
@@ -154,10 +153,10 @@ def ReceiveMessage(cli,AESk):
                     if msg_split[0]=='stop' : 
                         send_message(cli,AESk,encrymsg='Comm Channel Closed...')
                     else :
-                        color_print(f'\n[C] Client Said : {msg_split[0]}',color='magenta')
+                        color_print(f'\n[C] {name} Said : {msg_split[0]}',color='magenta')
                         send_message(cli,AESk,noInp=True)
                 else : 
-                    replies=client_functions_replies.get(msg_split[2])([msg_split[0],msg_split[1]])
+                    replies=client_functions_replies.get(msg_split[2])([msg_split[0],msg_split[1]],name)
                     send_message(cli,AESk,encrymsg=replies)
             except IndexError : 
                 send_message(cli,AESk,encrymsg='File Uploaded')
