@@ -64,9 +64,13 @@ def Download() :
 def Messages() : 
     return FLAG_READY+'::CLIENT::'+'comms'
 
+def chatroom() : 
+    return FLAG_READY+'::CLIENT::'+'Chatroom'
+
+
 def start() : 
         color_print(f'===========================================================================\nWelcome To SPAM2 System, user\n===========================================================================' , color='blue');
-        function_stri={1 : {'alias':'Uploading','Function' :send_encrypted} ,2 : {'alias':'Messaging','Function' :Messages} ,3 : {'alias':'Downloading','Function' :Download} ,4 : {'alias':'Quit','Function' :quit_from_server} }
+        function_stri={1 : {'alias':'Uploading','Function' :send_encrypted} ,2 : {'alias':'Messaging','Function' :Messages} ,3 : {'alias':'Downloading','Function' :Download} ,4 : {'alias':'Chatroom','Function' :chatroom},5 : {'alias':'Quit','Function' :quit_from_server} }
         print(tabulate.tabulate(headers=['number','function'],tabular_data=[[i,function_stri[(i)]['alias']] for i in range(1,len(function_stri)+1)],tablefmt='fancy_grid'))
         user_option=numericonly(inputstring='What would you like to do  : ',range=True,rangeMax=len(function_stri),rangeMin=1)
         msg=function_stri.get(user_option)['Function']()
@@ -135,7 +139,7 @@ def SendMessage(encrypt_only=True,encryption_required=None,encrypt=True):
 def ReceiveMessage():
     while True:
         emsg = server.recv(1024)
-        print(emsg)
+        # print(emsg)
         AESkeyDn=AES.new(key_128, AES.MODE_EAX,nonce=key_128)
         emsg=AESkeyDn.decrypt(emsg);
         # print(emsg)
