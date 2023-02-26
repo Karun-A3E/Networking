@@ -28,10 +28,7 @@ This project is a Python implementation of cryptography encryption, including RS
 
 ## Things To Improve
 
-[] Enable Admin Dialog with only one user
-
-[] Enable the sending of File Listing With Filtered over to the Client to View
-
-[] Enable Chatroom For Users Only With the functionality for leaving and entering different Chatrooms and setting up some chatrooms
-
-[] many more....
+[]Enable Chatroom For Users Only With the functionality for leaving and entering different Chatrooms
+[]Enable Admin Dialog with only one user
+[]Enable the sending of File Listing With Filtered over to the Client to View
+[]many more....

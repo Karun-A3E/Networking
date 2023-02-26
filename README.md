@@ -1,5 +1,5 @@
 # Network
  Scripts Related To Networking
-# Pupsoe
+# Purpose
 This repo will contain scripts that are related to Networking
 Hope it can help others
